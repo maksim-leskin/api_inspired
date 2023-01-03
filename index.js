@@ -42,26 +42,44 @@ const pagination = (data, page, count) => {
   };
 };
 
-const getGoodsList = (params = {}) => {
-  console.log("params: ", params);
+const getGoodsList = (params) => {
+  const keys = Object.keys(params);
+  if (keys.length) {
+    const isKeys = keys.every((item) =>
+      [
+        "page",
+        "count",
+        "gender",
+        "category",
+        "type",
+        "search",
+        "list",
+      ].includes(item)
+    );
+
+    if (!isKeys) {
+      throw new ApiError(403, { message: "Fail Params" });
+    }
+  }
+
   const page = +params.page || 1;
-  const paginationCount = params.count || 12;
+  const paginationCount = +params.count || 12;
 
   let data = [...db.goods];
 
-  if (params.top) {
-    data = data.filter((item) => item.top && item.gender === params.top);
-    data = shuffle(data);
-    data.length = 8;
-    return data;
-  }
-
   if (params.gender) {
     data = data.filter((item) => item.gender === params.gender);
+    if (!params.category) {
+      data = data.filter((item) => item.top && item.gender === params.gender);
+      data = shuffle(data);
+      data.length = 8;
+      return data;
+    }
   }
 
   if (params.category) {
-    if (!params.gender) throw new ApiError(403, { message: "Not gender params" });
+    if (!params.gender)
+      throw new ApiError(403, { message: "Not gender params" });
     data = data.filter((item) => item.category === params.category);
   }
 
@@ -83,10 +101,6 @@ const getGoodsList = (params = {}) => {
     const list = params.list.trim().toLowerCase();
     return db.goods.filter((item) => list.includes(item.id));
   }
-
-  // if (params.color) {
-  //   data = data.filter((item) => params.color?.includes(item.color));
-  // }
 
   return pagination(data, page, paginationCount);
 };
@@ -191,14 +205,15 @@ createServer(async (req, res) => {
       );
       console.log("Нажмите CTRL+C, чтобы остановить сервер");
       console.log("Доступные методы:");
-      console.log(`GET ${URI_PREFIX} - получить список всех товаров с пагинацией`);
+      console.log(
+        `GET ${URI_PREFIX} - получить список всех товаров с пагинацией`
+      );
       console.log(`GET ${URI_PREFIX}/{id} - получить товар по его ID`);
       console.log(`GET /api/categories - получить список категорий`);
       console.log(`GET /api/colors - получить список цветов`);
       console.log(
         `GET ${URI_PREFIX}?[param]
 Параметры:
-        top
         gender
         category&gender
         search = поиск
@@ -211,6 +226,3 @@ createServer(async (req, res) => {
   })
   // ...и вызываем запуск сервера на указанном порту
   .listen(PORT);
-
-
-
