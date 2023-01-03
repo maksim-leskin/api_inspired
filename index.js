@@ -49,12 +49,17 @@ const getGoodsList = (params = {}) => {
 
   let data = [...db.goods];
 
-  if (params.new) {
-    data = data.filter((item) => item.new && item.gender === params.new);
+  if (params.top) {
+    data = data.filter((item) => item.top && item.gender === params.top);
     data = shuffle(data);
-    if (data.length > paginationCount) {
-      data.length = paginationCount;
-    }
+    data.length = 8;
+    return data;
+  }
+
+  if (params.gender) {
+    data = data.filter((item) => item.gender === params.gender);
+    data = shuffle(data);
+    data.length = paginationCount;
     return data;
   }
 
@@ -132,11 +137,6 @@ createServer(async (req, res) => {
 
   if (req.url.includes("/api/colors")) {
     res.end(JSON.stringify(db.colors));
-    return;
-  }
-
-  if (req.url.includes("/api/materials")) {
-    res.end(JSON.stringify(db.materials));
     return;
   }
 
