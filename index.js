@@ -58,12 +58,10 @@ const getGoodsList = (params = {}) => {
 
   if (params.gender) {
     data = data.filter((item) => item.gender === params.gender);
-    data = shuffle(data);
-    data.length = paginationCount;
-    return data;
   }
 
   if (params.category) {
+    if (!params.gender) throw new ApiError(403, { message: "Not gender params" });
     data = data.filter((item) => item.category === params.category);
   }
 
@@ -74,8 +72,6 @@ const getGoodsList = (params = {}) => {
   if (params.search) {
     const search = params.search.trim().toLowerCase();
     data = db.goods.filter((item) => {
-      console.log(search);
-      console.log("item: ", item);
       return (
         item.title.toLowerCase().includes(search) ||
         item.description.toLowerCase().includes(search)
@@ -85,7 +81,6 @@ const getGoodsList = (params = {}) => {
 
   if (params.list) {
     const list = params.list.trim().toLowerCase();
-    console.log(db.goods);
     return db.goods.filter((item) => list.includes(item.id));
   }
 
@@ -192,31 +187,30 @@ createServer(async (req, res) => {
   .on("listening", () => {
     if (process.env.NODE_ENV !== "test") {
       console.log(
-        `Сервер CRM запущен. Вы можете использовать его по адресу http://localhost:${PORT}`
+        `Сервер Inspired запущен. Вы можете использовать его по адресу http://localhost:${PORT}`
       );
       console.log("Нажмите CTRL+C, чтобы остановить сервер");
       console.log("Доступные методы:");
-      console.log(`GET ${URI_PREFIX} - получить список товаров`);
-      console.log(
-        `GET ${URI_PREFIX}?new={men,women} - получить список новых товаров по гендеру`
-      );
+      console.log(`GET ${URI_PREFIX} - получить список всех товаров с пагинацией`);
       console.log(`GET ${URI_PREFIX}/{id} - получить товар по его ID`);
-      console.log(`GET ${URI_PREFIX}?{search=""} - найти товар по названию`);
-      console.log(`GET /api/category - получить список категорий`);
+      console.log(`GET /api/categories - получить список категорий`);
+      console.log(`GET /api/colors - получить список цветов`);
       console.log(
-        `GET ${URI_PREFIX}?{category=""&maxprice=""} - фильтрация
+        `GET ${URI_PREFIX}?[param]
 Параметры:
-        category
-        color
-        minprice
-        maxprice
-        mindisplay
-        maxdisplay`
-      );
-      console.log(
-        `GET ${URI_PREFIX}?{list="{id},{id}"} - получить товары по id`
+        top
+        gender
+        category&gender
+        search = поиск
+        count = количество товаров (12)
+        page = страница (1)
+        list={id},{id} - получить список товаров по id
+        `
       );
     }
   })
   // ...и вызываем запуск сервера на указанном порту
   .listen(PORT);
+
+
+
