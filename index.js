@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readFileSync, readFile } from "node:fs";
 import { createServer } from "node:http";
 import path from "path";
 import * as url from "url";
@@ -123,7 +123,8 @@ createServer(async (req, res) => {
   if (req.url.substring(1, 4) === "img") {
     res.statusCode = 200;
     res.setHeader("Content-Type", "image/jpeg");
-    require("fs").readFile(`.${req.url}`, (err, image) => {
+    console.log(req.url);
+    readFile(`${__dirname}${req.url}`, (err, image) => {
       res.end(image);
     });
     return;
