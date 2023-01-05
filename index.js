@@ -63,16 +63,22 @@ const getGoodsList = (params) => {
   }
 
   const page = +params.page || 1;
-  const paginationCount = +params.count || 12;
+  let paginationCount = +params.count || 12;
 
   let data = [...db.goods];
 
   if (params.gender) {
-    data = data.filter((item) => item.gender === params.gender);
+    if (params.gender === "all") {
+      paginationCount = +params.count || 4;
+    } else {
+      data = data.filter((item) => item.gender === params.gender);
+      paginationCount = +params.count || 8;
+    }
+
     if (!params.category) {
-      data = data.filter((item) => item.top && item.gender === params.gender);
+      data = data.filter((item) => item.top);
       data = shuffle(data);
-      data.length = 8;
+      data.length = paginationCount;
       return data;
     }
   }
