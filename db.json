@@ -2,67 +2,67 @@
   "colors": [
     {
       "id": 1,
-      "title": "Black",
+      "title": "black",
       "code": "#000000"
     },
     {
       "id": 2,
-      "title": "White",
+      "title": "white",
       "code": "#ffffff"
     },
     {
       "id": 3,
-      "title": "Red",
+      "title": "red",
       "code": "#dd0808"
     },
     {
       "id": 4,
-      "title": "Green ",
+      "title": "green",
       "code": "#00a814"
     },
     {
       "id": 5,
-      "title": "Blue",
+      "title": "blue",
       "code": "#180ae6"
     },
     {
       "id": 6,
-      "title": "Pink",
+      "title": "pink",
       "code": "#df8fe0"
     },
     {
       "id": 7,
-      "title": "Grey",
+      "title": "grey",
       "code": "#8A8A8A"
     },
     {
       "id": 8,
-      "title": "Yellow",
+      "title": "yellow",
       "code": "#e8e337"
     },
     {
       "id": 9,
-      "title": "Brown",
+      "title": "brown",
       "code": "#4c3228"
     },
     {
       "id": 10,
-      "title": "Beige",
+      "title": "beige",
       "code": "#F5F5DC"
     },
     {
       "id": 11,
-      "title": "Violet",
+      "title": "violet",
       "code": "#5f4b8b"
     },
     {
       "id": 12,
-      "title": "Ruby",
+      "title": "ruby",
       "code": "#9b111e"
     },
     {
       "id": 13,
-      "title": "Deepskyblue",
+      "title": "deepskyblue",
       "code": "#00bfff"
     }
   ],
