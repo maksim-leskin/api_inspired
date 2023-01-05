@@ -123,7 +123,6 @@ createServer(async (req, res) => {
   if (req.url.substring(1, 4) === "img") {
     res.statusCode = 200;
     res.setHeader("Content-Type", "image/jpeg");
-    console.log(req.url);
     readFile(`${__dirname}${req.url}`, (err, image) => {
       res.end(image);
     });
