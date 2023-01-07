@@ -1,13 +1,23 @@
-import { readFileSync, readFile } from "node:fs";
+import { readFileSync, readFile, writeFile } from "node:fs";
 import { createServer } from "node:http";
 import path from "path";
 import * as url from "url";
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 const DB_FILE = path.resolve(__dirname, "db.json");
+const ORDER_FILE = path.resolve(__dirname, "order.json");
 const PORT = process.env.PORT || 8024;
 const URI_PREFIX = "/api/goods";
 
 const db = JSON.parse(readFileSync(DB_FILE) || "[]");
+const orders = JSON.parse(readFileSync(ORDER_FILE) || "[]");
+
+const saveOrder = (data) => {
+  orders.push(data);
+  writeFile(ORDER_FILE, orders, (err) => {
+    if (err) throw err;
+    console.log('Orders has been saved!');
+  });
+}
 
 const shuffle = (array) => {
   const shuffleArray = [...array];
@@ -228,6 +238,8 @@ createServer(async (req, res) => {
         list={id},{id} - получить список товаров по id
         `
       );
+      console.log(`POST /api/order - (в разработке) оформить заказ`);
+
     }
   })
   // ...и вызываем запуск сервера на указанном порту
