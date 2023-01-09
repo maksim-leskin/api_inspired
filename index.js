@@ -11,13 +11,29 @@ const URI_PREFIX = "/api/goods";
 const db = JSON.parse(readFileSync(DB_FILE) || "[]");
 const orders = JSON.parse(readFileSync(ORDER_FILE) || "[]");
 
-const saveOrder = (data) => {
-  orders.push(data);
-  writeFile(ORDER_FILE, orders, (err) => {
-    if (err) throw err;
-    console.log('Orders has been saved!');
+const drainJson = (req) =>
+  new Promise((resolve) => {
+    let data = "";
+    req.on("data", (chunk) => {
+      data += chunk;
+    });
+    req.on("end", () => {
+      resolve(JSON.parse(data));
+    });
   });
-}
+
+const createOrder = (data) => {
+  data.id =
+    Math.random().toString(10).substring(2, 8) +
+    Date.now().toString(10).substring(9);
+  orders.push(data);
+  writeFile(ORDER_FILE, JSON.stringify(orders), (err) => {
+    if (err) throw err;
+    console.log("Orders has been saved!");
+  });
+
+  return data;
+};
 
 const shuffle = (array) => {
   const shuffleArray = [...array];
@@ -144,7 +160,7 @@ createServer(async (req, res) => {
 
   // CORS заголовки ответа для поддержки кросс-доменных запросов из браузера
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
   // запрос с методом OPTIONS может отправлять браузер автоматически для проверки CORS заголовков
@@ -164,7 +180,27 @@ createServer(async (req, res) => {
     res.end(JSON.stringify(db.colors));
     return;
   }
-
+  try {
+    if (req.method === "POST" && req.url === "/api/order") {
+      const order = createOrder(await drainJson(req));
+      res.statusCode = 201;
+      res.setHeader("Access-Control-Expose-Headers", "Location");
+      res.setHeader("Location", `api/order/${order.id}`);
+      res.end(JSON.stringify(order));
+      return;
+    }
+  } catch (err) {
+    console.log("err: ", err);
+    // обрабатываем сгенерированную нами же ошибку
+    if (err instanceof ApiError) {
+      res.writeHead(err.statusCode);
+      res.end(JSON.stringify(err.data));
+    } else {
+      // если что-то пошло не так - пишем об этом в консоль и возвращаем 500 ошибку сервера
+      res.statusCode = 500;
+      res.end(JSON.stringify({ message: "Server Error" }));
+    }
+  }
   // если URI не начинается с нужного префикса - можем сразу отдать 404
   if (!req.url || !req.url.startsWith(URI_PREFIX)) {
     res.statusCode = 404;
@@ -186,6 +222,7 @@ createServer(async (req, res) => {
 
   try {
     // обрабатываем запрос и формируем тело ответа
+
     const body = await (() => {
       const postPrefix = uri.substring(1);
 
@@ -238,8 +275,7 @@ createServer(async (req, res) => {
         list={id},{id} - получить список товаров по id
         `
       );
-      console.log(`POST /api/order - (в разработке) оформить заказ`);
-
+      console.log(`POST /api/order - оформить заказ`);
     }
   })
   // ...и вызываем запуск сервера на указанном порту
