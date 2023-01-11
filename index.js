@@ -26,6 +26,7 @@ const createOrder = (data) => {
   data.id =
     Math.random().toString(10).substring(2, 8) +
     Date.now().toString(10).substring(9);
+  data.createdAt = new Date().toGMTString();
   orders.push(data);
   writeFile(ORDER_FILE, JSON.stringify(orders), (err) => {
     if (err) throw err;
