@@ -132,7 +132,7 @@ const getGoodsList = (params) => {
 
   if (params.list) {
     const list = params.list.trim().toLowerCase();
-    return db.goods.filter((item) => list.includes(item.id));
+    data = db.goods.filter((item) => list.includes(item.id)).reverse();
   }
 
   return pagination(data, page, paginationCount);
