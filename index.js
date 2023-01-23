@@ -23,6 +23,8 @@ const drainJson = (req) =>
   });
 
 const createOrder = (data) => {
+  if (!data.order.length) throw new ApiError(500, { message: "Order is empty" });
+
   data.id =
     Math.random().toString(10).substring(2, 5)
   data.createdAt = new Date().toGMTString();
