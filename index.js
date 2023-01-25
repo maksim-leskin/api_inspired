@@ -136,6 +136,7 @@ const getGoodsList = (params) => {
     const list = params.list.trim().toLowerCase();
     data = db.goods.filter((item) => list.includes(item.id)).reverse();
   }
+
   if (params.count === 'all') {
     return data;
   }
