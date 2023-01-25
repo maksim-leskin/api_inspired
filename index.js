@@ -131,7 +131,8 @@ const getGoodsList = (params) => {
     });
   }
 
-  if (params.list) {
+
+  if (params.list || Object.hasOwn(params, 'list')) {
     const list = params.list.trim().toLowerCase();
     data = db.goods.filter((item) => list.includes(item.id)).reverse();
   }
