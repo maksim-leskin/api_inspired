@@ -22,6 +22,14 @@ const drainJson = (req) =>
     });
   });
 
+class ApiError extends Error {
+  constructor(statusCode, data) {
+    super();
+    this.statusCode = statusCode;
+    this.data = data;
+  }
+}
+
 const createOrder = (data) => {
   if (!data.order.length) throw new ApiError(500, { message: "Order is empty" });
 
@@ -47,13 +55,6 @@ const shuffle = (array) => {
   return shuffleArray;
 };
 
-class ApiError extends Error {
-  constructor(statusCode, data) {
-    super();
-    this.statusCode = statusCode;
-    this.data = data;
-  }
-}
 
 const pagination = (data, page, count) => {
   const end = count * page;
@@ -131,7 +132,7 @@ const getGoodsList = (params) => {
     });
   }
 
-  if (params.list) {
+  if (params.list || Object.hasOwn(params, 'list')) {
     const list = params.list.trim().toLowerCase();
     data = db.goods.filter((item) => list.includes(item.id)).reverse();
   }
