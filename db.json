@@ -79,6 +79,16 @@
   "categories": {
     "women": {
       "title": "Женское",
+      "banner": {
+        "description": "Новая коллекция Бюстгальтер-балконет",
+        "id": "4491988883",
+        "bg": {
+          "mob": "bg-mobile-women.jpg",
+          "tablet": "bg-tablet-women.jpg",
+          "laptop": "bg-laptop-women.jpg",
+          "desktop": "bg-women.jpg"
+        }
+      },
       "list": [
         {
           "title": "Бюстгальтеры",
@@ -108,6 +118,16 @@
     },
     "men": {
       "title": "Мужское",
+      "banner": {
+        "description": "Боксеры из новой коллекции",
+        "id": "3215522146",
+        "bg": {
+          "mob": "bg-mobile-men.jpg",
+          "tablet": "bg-tablet-men.jpg",
+          "laptop": "bg-laptop-men.jpg",
+          "desktop": "bg-men.jpg"
+        }
+      },
       "list": [
         {
           "title": "Нижнее бельё",
@@ -129,6 +149,17 @@
     },
     "kids": {
       "title": "Детское",
+      "banner": {
+        "description": "Новая летняя коллекция",
+        "id": "6630193235",
+        "bg": {
+          "mob": "bg-mobile-kids.jpg",
+          "tablet": "bg-tablet-kids.jpg",
+          "laptop": "bg-laptop-kids.jpg",
+          "desktop": "bg-kids.jpg"
+        }
+      },
+
       "list": [
         {
           "title": "Девочки",
@@ -1977,6 +2008,19 @@
       "colors": [7],
       "pic": "img/1345292344.jpg",
       "materials": "95% хлопок, 5% эластан",
+      "gender": "kids",
+      "top": true,
+      "size": ["2-3", "4-5", "6-7"]
+    },
+    {
+      "id": "6630193235",
+      "title": "Плавки для купания United Colors",
+      "description": "UNDERCOLORS KIDS - летняя коллекция Undercolors для детей традиционно выполнена в ярких и сочных оттенках. Купальники и плавки для маленьких модников выполнены из качественных быстросохнущих материалов, они эластичны и не сковывают движений, поэтому ребенок будет выглядеть не только стильно, но и чувствовать себя комфортно",
+      "category": "boys",
+      "price": 1699,
+      "colors": [5],
+      "pic": "img/6630193235.jpg",
+      "materials": "80% полиэстер, 20% эластан",
       "gender": "kids",
       "top": true,
       "size": ["2-3", "4-5", "6-7"]
