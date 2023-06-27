@@ -1840,7 +1840,7 @@
       "pic": "img/4967422481.jpg",
       "materials": "95% хлопок, 5% эластан",
       "gender": "kids",
-      "top": false,
+      "top": true,
       "size": ["2-3", "4-5", "6-7"]
     },
     {
