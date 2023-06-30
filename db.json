@@ -83,10 +83,10 @@
         "description": "Новая коллекция Бюстгальтер-балконет",
         "id": "4491988883",
         "bg": {
-          "mobile": "bg-mobile-women.jpg",
-          "tablet": "bg-tablet-women.jpg",
-          "laptop": "bg-laptop-women.jpg",
-          "desktop": "bg-women.jpg"
+          "mobile": "img/bg-mobile-women.jpg",
+          "tablet": "img/bg-tablet-women.jpg",
+          "laptop": "img/bg-laptop-women.jpg",
+          "desktop": "img/bg-women.jpg"
         }
       },
       "list": [
@@ -122,10 +122,10 @@
         "description": "Боксеры из новой коллекции",
         "id": "3215522146",
         "bg": {
-          "mobile": "bg-mobile-men.jpg",
-          "tablet": "bg-tablet-men.jpg",
-          "laptop": "bg-laptop-men.jpg",
-          "desktop": "bg-men.jpg"
+          "mobile": "img/bg-mobile-men.jpg",
+          "tablet": "img/bg-tablet-men.jpg",
+          "laptop": "img/bg-laptop-men.jpg",
+          "desktop": "img/bg-men.jpg"
         }
       },
       "list": [
@@ -153,10 +153,10 @@
         "description": "Новая летняя коллекция",
         "id": "6630193235",
         "bg": {
-          "mobile": "bg-mobile-kids.jpg",
-          "tablet": "bg-tablet-kids.jpg",
-          "laptop": "bg-laptop-kids.jpg",
-          "desktop": "bg-kids.jpg"
+          "mobile": "img/bg-mobile-kids.jpg",
+          "tablet": "img/bg-tablet-kids.jpg",
+          "laptop": "img/bg-laptop-kids.jpg",
+          "desktop": "img/bg-kids.jpg"
         }
       },
 
