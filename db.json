@@ -83,7 +83,7 @@
         "description": "Новая коллекция Бюстгальтер-балконет",
         "id": "4491988883",
         "bg": {
-          "mob": "bg-mobile-women.jpg",
+          "mobile": "bg-mobile-women.jpg",
           "tablet": "bg-tablet-women.jpg",
           "laptop": "bg-laptop-women.jpg",
           "desktop": "bg-women.jpg"
@@ -122,7 +122,7 @@
         "description": "Боксеры из новой коллекции",
         "id": "3215522146",
         "bg": {
-          "mob": "bg-mobile-men.jpg",
+          "mobile": "bg-mobile-men.jpg",
           "tablet": "bg-tablet-men.jpg",
           "laptop": "bg-laptop-men.jpg",
           "desktop": "bg-men.jpg"
@@ -153,7 +153,7 @@
         "description": "Новая летняя коллекция",
         "id": "6630193235",
         "bg": {
-          "mob": "bg-mobile-kids.jpg",
+          "mobile": "bg-mobile-kids.jpg",
           "tablet": "bg-tablet-kids.jpg",
           "laptop": "bg-laptop-kids.jpg",
           "desktop": "bg-kids.jpg"
