@@ -1,3 +1,4 @@
+import { log } from "node:console";
 import { readFileSync, readFile, writeFile } from "node:fs";
 import { createServer } from "node:http";
 import path from "path";
@@ -31,10 +32,10 @@ class ApiError extends Error {
 }
 
 const createOrder = (data) => {
-  if (!data.order.length) throw new ApiError(500, { message: "Order is empty" });
+  if (!data.order.length)
+    throw new ApiError(500, { message: "Order is empty" });
 
-  data.id =
-    Math.random().toString(10).substring(2, 5)
+  data.id = Math.random().toString(10).substring(2, 5);
   data.createdAt = new Date().toGMTString();
   orders.push(data);
   writeFile(ORDER_FILE, JSON.stringify(orders), (err) => {
@@ -54,7 +55,6 @@ const shuffle = (array) => {
 
   return shuffleArray;
 };
-
 
 const pagination = (data, page, count) => {
   const end = count * page;
@@ -83,6 +83,8 @@ const getGoodsList = (params) => {
         "type",
         "search",
         "list",
+        "top",
+        "exclude",
       ].includes(item)
     );
 
@@ -107,14 +109,31 @@ const getGoodsList = (params) => {
     if (!params.category) {
       data = data.filter((item) => item.top);
       data = shuffle(data);
-      data.length = paginationCount;
+      if (paginationCount < data.length) {
+        data.length = paginationCount;
+      }
+
       return data;
     }
   }
 
   if (params.category) {
-    if (!params.gender)
+    if (!params.gender) {
       throw new ApiError(403, { message: "Not gender params" });
+    }
+    if (params.top) {
+      data = data.filter(
+        (item) =>
+          item.top &&
+          item.category === params.category &&
+          item.id !== params.exclude
+      );
+      data = shuffle(data);
+      if (paginationCount < data.length) {
+        data.length = paginationCount;
+      }
+    }
+
     data = data.filter((item) => item.category === params.category);
   }
 
@@ -132,12 +151,12 @@ const getGoodsList = (params) => {
     });
   }
 
-  if (params.list || Object.hasOwn(params, 'list')) {
+  if (params.list || Object.hasOwn(params, "list")) {
     const list = params.list.trim().toLowerCase();
     data = db.goods.filter((item) => list.includes(item.id)).reverse();
   }
 
-  if (params.count === 'all') {
+  if (params.count === "all") {
     return data;
   }
 
