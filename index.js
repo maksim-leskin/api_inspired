@@ -299,9 +299,22 @@ createServer(async (req, res) => {
         count = количество товаров (12)
         page = страница (1)
         list={id},{id} - получить список товаров по id
+        exclude=id - исключить id
+        top=true - топ товары
         `
       );
-      console.log(`POST /api/order - оформить заказ`);
+      console.log(
+        `POST /api/order - оформить заказ (
+          {
+            fio: str,
+            address: str,
+            phone: str,
+            email: str,
+            delivery: bool,
+            goods: [{id, count}]
+          })
+          no validate`
+      );
     }
   })
   // ...и вызываем запуск сервера на указанном порту
