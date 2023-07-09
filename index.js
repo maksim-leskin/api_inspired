@@ -37,6 +37,12 @@ const createOrder = (data) => {
 
   data.id = Math.random().toString(10).substring(2, 5);
   data.createdAt = new Date().toGMTString();
+
+  data.totalPrice = data.order.reduce((acc, item) => {
+    const product = db.goods.find((product) => item.id === product.id)
+    return acc + item.count * product.price
+  }, 0);
+
   orders.push(data);
   writeFile(ORDER_FILE, JSON.stringify(orders), (err) => {
     if (err) throw err;
