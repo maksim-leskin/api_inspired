@@ -313,7 +313,7 @@ createServer(async (req, res) => {
         `POST /api/order - оформить заказ (
           {
             fio: str,
-            address: str,
+            address?: str,
             phone: str,
             email: str,
             delivery: bool,
@@ -321,7 +321,7 @@ createServer(async (req, res) => {
           })
           no validate`
       );
+      console.log(`Happy Coding 🎉`)
     }
   })
-  // ...и вызываем запуск сервера на указанном порту
   .listen(PORT);
