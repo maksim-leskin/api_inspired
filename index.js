@@ -148,7 +148,8 @@ const getGoodsList = (params) => {
   }
 
   if (params.search) {
-    const search = params.search.trim().toLowerCase();
+    const search = params.search.replaceAll('+', '').trim().toLowerCase();
+    console.log('search: ', `|${search}|`);
     data = db.goods.filter((item) => {
       return (
         item.title.toLowerCase().includes(search) ||
