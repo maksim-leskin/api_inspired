@@ -77,6 +77,8 @@ const pagination = (data, page, count) => {
   };
 };
 
+const goodsData = (data) => ({ goods: data });
+
 const getGoodsList = (params) => {
   const keys = Object.keys(params);
   if (keys.length) {
@@ -119,7 +121,7 @@ const getGoodsList = (params) => {
         data.length = paginationCount;
       }
 
-      return data;
+      return goodsData(data);
     }
   }
 
@@ -163,7 +165,7 @@ const getGoodsList = (params) => {
   }
 
   if (params.count === "all") {
-    return data;
+    return goodsData(data);
   }
 
   return pagination(data, page, paginationCount);
