@@ -39,8 +39,8 @@ const createOrder = (data) => {
   data.createdAt = new Date().toGMTString();
 
   data.totalPrice = data.order.reduce((acc, item) => {
-    const product = db.goods.find((product) => item.id === product.id)
-    return acc + item.count * product.price
+    const product = db.goods.find((product) => item.id === product.id);
+    return acc + item.count * product.price;
   }, 0);
 
   orders.push(data);
@@ -148,7 +148,7 @@ const getGoodsList = (params) => {
   }
 
   if (params.search) {
-    const search = params.search.replaceAll('+', ' ').trim().toLowerCase();
+    const search = params.search.replaceAll("+", " ").trim().toLowerCase();
     data = db.goods.filter((item) => {
       return (
         item.title.toLowerCase().includes(search) ||
@@ -176,6 +176,11 @@ const getItems = (itemId) => {
 };
 
 createServer(async (req, res) => {
+  // CORS заголовки ответа для поддержки кросс-доменных запросов из браузера
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
   // req - объект с информацией о запросе, res - объект для управления отправляемым ответом
   // чтобы не отклонять uri с img
   if (req.url.substring(1, 4) === "img") {
@@ -189,11 +194,6 @@ createServer(async (req, res) => {
 
   // этот заголовок ответа указывает, что тело ответа будет в JSON формате
   res.setHeader("Content-Type", "application/json");
-
-  // CORS заголовки ответа для поддержки кросс-доменных запросов из браузера
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
   // запрос с методом OPTIONS может отправлять браузер автоматически для проверки CORS заголовков
   // в этом случае достаточно ответить с пустым телом и этими заголовками
@@ -321,7 +321,8 @@ createServer(async (req, res) => {
           })
           no validate`
       );
-      console.log(`Happy Coding 🎉`)
+      console.log("Update 15/07/2023 add preload fetch image");
+      console.log(`Happy Coding 🎉`);
     }
   })
   .listen(PORT);
